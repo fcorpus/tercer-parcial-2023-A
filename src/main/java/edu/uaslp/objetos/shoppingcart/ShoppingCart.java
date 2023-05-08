@@ -1,5 +1,7 @@
 package edu.uaslp.objetos.shoppingcart;
 
+import exceptions.ItemNotFoundException;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,25 +10,44 @@ public class ShoppingCart {
     private LinkedList<ShoppingItem> shoppingCart;
     private ShoppingItemCatalog shoppingItemCatalog;
     private int size=0;
-    public ShoppingCart(ShoppingItemCatalog shoppingItemCatalog) {
-        shoppingCart = new LinkedList<>();
+    private int totalCost;
+    private int distinctItemsCount;
+    private int totalItemsCount;
+    public ShoppingCart(ShoppingItemCatalog shoppingItemCatalog, List<ShoppingItem> shoppingItemList, int totalCost, int distinctItemsCount, int totalItemsCount) {
         this.shoppingItemCatalog=shoppingItemCatalog;
+        this.shoppingCart = shoppingCart;
+        this.totalCost = totalCost;
+        this.distinctItemsCount = distinctItemsCount;
+        this.totalItemsCount = totalItemsCount;
     }
-    public void add(String code){
+    public void setTotalCost(int totalCost){
+        this.totalCost=totalCost;
+    }
+    public void setDistinctItemsCount(int distinctItemsCount) {
+        this.distinctItemsCount = distinctItemsCount;
+    }
 
-        size ++;
+    public void setTotalItemsCount(int totalItemsCount) {
+        this.totalItemsCount = totalItemsCount;
+    }
+    public void setShoppingItemCatalog(LinkedList<ShoppingItem> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+    public void add(String code) throws ItemNotFoundException {
+        ShoppingItem item1=shoppingItemCatalog.getItem(code);
+        shoppingCart.add(item1);
     }
     public int getTotalCostInCents(){
-
+        return 0;
     }
     public int getDistinctItemsCount(){
-
+        return 0;
     }
     public int getTotalItemsCount(){
-
+        return 0;
     }
     public List<ShoppingItem> getItems(){
-
+        return null;
     }
 
     public Collection<ShoppingItem> getDistinctItems() {
