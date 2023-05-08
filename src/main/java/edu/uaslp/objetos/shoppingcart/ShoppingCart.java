@@ -13,12 +13,8 @@ public class ShoppingCart {
     private int totalCost;
     private int distinctItemsCount;
     private int totalItemsCount;
-    public ShoppingCart(ShoppingItemCatalog shoppingItemCatalog, List<ShoppingItem> shoppingItemList, int totalCost, int distinctItemsCount, int totalItemsCount) {
+    public ShoppingCart(ShoppingItemCatalog shoppingItemCatalog) {
         this.shoppingItemCatalog=shoppingItemCatalog;
-        this.shoppingCart = shoppingCart;
-        this.totalCost = totalCost;
-        this.distinctItemsCount = distinctItemsCount;
-        this.totalItemsCount = totalItemsCount;
     }
     public void setTotalCost(int totalCost){
         this.totalCost=totalCost;
