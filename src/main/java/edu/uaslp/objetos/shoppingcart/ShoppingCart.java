@@ -1,52 +1,54 @@
 package edu.uaslp.objetos.shoppingcart;
 
-import exceptions.ItemNotFoundException;
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ShoppingCart {
-    private LinkedList<ShoppingItem> shoppingCart;
-    private ShoppingItemCatalog shoppingItemCatalog;
-    private int size=0;
-    private int totalCost;
-    private int distinctItemsCount;
-    private int totalItemsCount;
-    public ShoppingCart(ShoppingItemCatalog shoppingItemCatalog) {
+    private final ShoppingItemCatalog shoppingItemCatalog;
+    private List<ShoppingItem> items=new LinkedList<>();
+    public ShoppingCart(ShoppingItemCatalog shoppingItemCatalog){
         this.shoppingItemCatalog=shoppingItemCatalog;
     }
-    public void setTotalCost(int totalCost){
-        this.totalCost=totalCost;
-    }
-    public void setDistinctItemsCount(int distinctItemsCount) {
-        this.distinctItemsCount = distinctItemsCount;
+    public void add(String code){
+        items.add(shoppingItemCatalog.getItem(code));
     }
 
-    public void setTotalItemsCount(int totalItemsCount) {
-        this.totalItemsCount = totalItemsCount;
+    public int getTotalCostInCents() {
+        int totalCost=0;
+        for(ShoppingItem item:items){
+            totalCost+=item.getUnitCostInCents();
+        }
+        return totalCost;
     }
-    public void setShoppingItemCatalog(LinkedList<ShoppingItem> shoppingCart) {
-        this.shoppingCart = shoppingCart;
+    public int getDistinctItemsCount() {
+        Collection<ShoppingItem> distinctItems=getDistinctItems();
+        return distinctItems.size();
     }
-    public void add(String code) throws ItemNotFoundException {
-        ShoppingItem item1=shoppingItemCatalog.getItem(code);
-        shoppingCart.add(item1);
+    private boolean itemIsPresent(ShoppingItem itemFind,List<ShoppingItem> distinctItems){
+        for(ShoppingItem item:distinctItems){
+            if(itemFind.getCode().equals(item.getCode())){
+                return true;
+            }
+        }
+        return false;
     }
-    public int getTotalCostInCents(){
-        return 0;
+
+    public int getTotalItemsCount() {
+        return items.size();
     }
-    public int getDistinctItemsCount(){
-        return 0;
-    }
-    public int getTotalItemsCount(){
-        return 0;
-    }
-    public List<ShoppingItem> getItems(){
-        return null;
+
+    public List<ShoppingItem> getItems() {
+        return items;
     }
 
     public Collection<ShoppingItem> getDistinctItems() {
-        return null;
+        List<ShoppingItem> distinctItems=new LinkedList<>();
+        for(ShoppingItem item:items){
+            if(!itemIsPresent(item,distinctItems)){
+                distinctItems.add(item);
+            }
+        }
+        return distinctItems;
     }
 }

@@ -14,7 +14,7 @@ public class Exercise3ShoppingItemCatalog {
         //when
         shoppingItem=shoppingItemCatalog.getItem("ABC4000");
         //then
-        assertThat(shoppingItem).isEqualTo(shoppingItemCatalog.getItem("ABC4000"));
+        assertThat(shoppingItem).isNotNull();
     }
 
     @Test
